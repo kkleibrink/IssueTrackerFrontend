@@ -17,7 +17,7 @@ const Landing = ({ auth }) => {
       <div className="text-center">
         <h4 className="font-bold">
           <span className="text-black">Track</span> user issues with style.{" "}
-          <span className="font-mono"></span> Issue Tracker
+          
         </h4>
         <p className="text-gray-800 text-lg">
           Login to see the magic happen
