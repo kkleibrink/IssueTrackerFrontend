@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3001/api';
+const baseUrl = 'https://peaceful-badlands-26223.herokuapp.com/api';
 
 export const getIssues = () => {
     return axios.get(`${baseUrl}/issues`)

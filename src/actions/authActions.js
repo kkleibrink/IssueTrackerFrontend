@@ -6,7 +6,7 @@ import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "./types";
-const baseUrl = 'http://localhost:3001/api';
+const baseUrl = 'https://peaceful-badlands-26223.herokuapp.com//api';
 // Register User
 export const registerUser = (userData, callback) => dispatch => {
   axios.post(`${baseUrl}/users/register`, userData)
