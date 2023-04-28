@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getIssue, updateIssue } from './api';
-import './IssuePage.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -35,39 +34,107 @@ const Issue = ({ auth }) => {
     return <div>Loading...</div>;
   }
 
+  const isAdmin = auth.user.role === 'admin';
+  const isCreator = issue.contact && auth.user.name === issue.contact.name;
+  
+
   return (
-    <div className="issue-container">
-      <h2 className="issue-title">{issue.title}</h2>
-      <p className="issue-description">{issue.description}</p>
-      <p className="issue-priority">Priority: {issue.priority}</p>
-      <p className="issue-category">Category: {issue.category}</p>
+    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <h2 className="text-2xl font-semibold text-gray-900">{issue.title}</h2>
+      <p className="mt-4 text-lg text-gray-500">{issue.description}</p>
+      <p className="mt-2 text-lg text-gray-600">Priority: {issue.priority}</p>
+      <p className="mt-2 text-lg text-gray-600">Category: {issue.category}</p>
       {issue.contact && (
-        <p className="issue-contact">
+        <p className="mt-2 text-lg text-gray-600">
           Contact: {issue.contact.name} - {issue.contact.email}
         </p>
       )}
       {issue.screenshot && (
-        <div className="issue-screenshot">
-          <img src={issue.screenshot} alt="Screenshot" />
+        <div className="mt-4">
+          <img src={issue.screenshot} alt="Screenshot" className="rounded-lg shadow-lg" />
         </div>
       )}
-      {auth.user.role === 'admin' && (
-        <div className="issue-actions">
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleClose}>Close</button>
-          <button onClick={handleAddResponse}>Add response</button>
+
+      {isAdmin && (
+        <div className="mt-4">
+       <button
+  onClick={handleEdit}
+  style={{
+    backgroundColor: "blue",
+    color: "white",
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "0.25rem",
+    transition: "background-color 0.3s ease-in-out",
+    marginRight: "1rem",
+  }}
+  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:bg-blue-700"
+>
+  Edit
+</button>
+
+<button
+  onClick={handleClose}
+  style={{
+    backgroundColor: "blue",
+    color: "white",
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "0.25rem",
+    transition: "background-color 0.3s ease-in-out",
+    marginRight: "1rem",
+  }}
+  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:bg-blue-700"
+>
+  Close
+</button>
+
+<button
+  onClick={handleAddResponse}
+  style={{
+    backgroundColor: "blue",
+    color: "white",
+    padding: "0.5rem 1rem",
+    border: "none",
+    borderRadius: "0.25rem",
+    transition: "background-color 0.3s ease-in-out",
+  }}
+  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white hover:bg-blue-700"
+>
+  Add response
+</button>
+
+
         </div>
       )}
-    </div>
-  );
+
+      {isCreator && !isAdmin && (
+        <div className="mt-4">
+          <button
+            onClick={handleClose}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue hover:bg-darkblue"
+          >
+            Close
+          </button>
+          <button
+            onClick={handleAddResponse}
+            className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue hover:bg-darkblue"
+          >
+            Add response
+          </button>
+          </div>
+  )}
+
+</div>
+);
 };
 
 Issue.propTypes = {
-  auth: PropTypes.object.isRequired,
+auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+auth: state.auth,
 });
 
 export default connect(mapStateToProps)(Issue);
