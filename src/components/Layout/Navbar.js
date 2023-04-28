@@ -18,13 +18,14 @@ const Navbar = ({ auth, logoutUser }) => {
   return (
     <header className="bg-white shadow">
       <nav className="container mx-auto px-6 py-3">
-        <div className="flex items-center justify-between">
-          {isAuthenticated && (
-            <span className="text-gray-800 font-medium">
-              Logged in as: {user.name.split(' ')[0]}
-            </span>
-          )}
-
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center">
+            {isAuthenticated && (
+              <span className="text-gray-800 font-medium">
+                Logged in as: {user.name.split(' ')[0]}
+              </span>
+            )}
+          </div>
           <Link
             to="/"
             className="text-gray-800 text-2xl font-semibold mx-auto"
@@ -32,17 +33,18 @@ const Navbar = ({ auth, logoutUser }) => {
             <i className="material-icons">code</i>
             Design Track
           </Link>
-
-          {isAuthenticated ? (
-            <button
-              onClick={onLogoutClick}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400"
-            >
-              Logout
-            </button>
-          ) : (
-            <div className="w-24"></div>
-          )}
+          <div className="flex items-center">
+            {isAuthenticated ? (
+              <button
+                onClick={onLogoutClick}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-400"
+              >
+                Logout
+              </button>
+            ) : (
+              <div className="w-24"></div>
+            )}
+          </div>
         </div>
       </nav>
     </header>
