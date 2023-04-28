@@ -18,14 +18,14 @@ const Login = ({ auth, loginUser, errors }) => {
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      navigate("/dashboard");
+      navigate("/issues");
     }
   }, [auth.isAuthenticated, navigate]);
 
   useEffect(() => {
     setState(prevState => ({ ...prevState, errors: errors }));
     if (auth.isAuthenticated) {
-      navigate("/dashboard");
+      navigate("/issues");
     }
   }, [auth.isAuthenticated, errors, navigate]);
 

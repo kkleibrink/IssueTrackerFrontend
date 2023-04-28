@@ -19,7 +19,7 @@ body {
   .create-button {
     position: absolute;
     right: 20px;
-    top: 50px;
+    top: 75px;
     background: linear-gradient(135deg, #1c80ff 0%, #5cabe1 100%);
     color: white;
     padding: 14px 20px;
