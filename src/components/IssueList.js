@@ -2,9 +2,12 @@ import { getIssues } from "./api";
 import IssueCard from "./IssueCard";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux"; // Import 'connect'
 import "./IssueList.css";
 
-const IssueList = () => {
+const IssueList = ({auth}) => {
+  const user = auth ? auth.user : null; 
+  console.log(user);
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
@@ -27,10 +30,18 @@ const IssueList = () => {
 
   return (
     <div className="issue-list">
+    <div className="header-container">
+      {user && user.role === "admin" && (
+        <Link to="/usermanagement">
+          <button className="user-management-button">User Management</button>
+        </Link>
+      )}
       <h1>Open Issues</h1>
-      <Link to="/add">
-        <button className="create-button">Create New Issue</button>
-      </Link>
+    </div>
+    <Link to="/add">
+      <button className="create-button">Create New Issue</button>
+    </Link>
+      
       <div className="categories">
         {categories.map((category) => (
           <div className="category-column" key={category.title}>
@@ -46,5 +57,8 @@ const IssueList = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default IssueList;
+export default connect(mapStateToProps)(IssueList);

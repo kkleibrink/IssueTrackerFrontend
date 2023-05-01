@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createIssue } from "./api";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "./IssueForm.css";
 
 
 const Dropdown = ({ name, value, onChange, options, openDropdown, onToggle }) => {
@@ -29,6 +30,7 @@ const Dropdown = ({ name, value, onChange, options, openDropdown, onToggle }) =>
   return (
     <div
     className="relative cursor-pointer border border-gray-300 rounded px-4 py-2 w-full"
+    style={{ backgroundColor: "white" }} // Added inline style here
     onClick={handleClick} // Use the handleClick function here
     >
       {value || "Select an option"}
@@ -141,6 +143,7 @@ const Dropdown = ({ name, value, onChange, options, openDropdown, onToggle }) =>
 
   return (
     <form
+      style={{ backgroundColor: "#f5f5f5" }}
       className="bg-white p-8 rounded shadow"
       onSubmit={handleSubmit}
     >
@@ -222,13 +225,15 @@ const Dropdown = ({ name, value, onChange, options, openDropdown, onToggle }) =>
           type="file"
           name="screenshot"
           onChange={handleFileChange}
+          style={{ backgroundColor: "white" }} // Added inline style here
         />
       </div>
       <input
-        className="bg-green-500 text-white px-6 py-2 rounded cursor-pointer hover:bg-green-600"
-        type="submit"
-        value="Submit Issue"
-      />
+  className="submit-button"
+  type="submit"
+  value="Submit Issue"
+/>
+      
     </form>
   );
 };
